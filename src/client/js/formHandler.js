@@ -4,7 +4,7 @@ function handleSubmit(event) {
     // check what text was put into the form field
     let formText = document.getElementById('name').value
 
-    fetch(`/sentiment?variable=${encodeURIComponent(formText)}`)
+    fetch(`http://localhost:3000/sentiment?variable=${encodeURIComponent(formText)}`)
     .then(res => {
         return res.json();
     })
