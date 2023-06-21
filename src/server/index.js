@@ -33,8 +33,8 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+app.listen(7000, function () {
+    console.log('Example app listening on port 7000!')
 })
 
 app.get('/test', function (req, res) {
@@ -46,10 +46,16 @@ app.get('/sentiment', (req, res) => {
 
   const apiKey = process.env.API_KEY; 
   // Define the text to analyze
-  const urlToAnalyze = req.query.variable;
+  const urlToAnalyze = req.query.variable1;
+  const inputType = req.query.variable2;
+  let url;
 
   // Set up the request parameters
-  const url = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=en&url=${encodeURIComponent(urlToAnalyze)}`;
+  if (inputType === 'url') {
+    url = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=en&url=${encodeURIComponent(urlToAnalyze)}`;
+  } else {
+    url = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=en&txt=${encodeURIComponent(urlToAnalyze)}`;
+  };
 
   fetch(url)
     .then(response => response.json())
